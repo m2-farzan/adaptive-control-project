@@ -38,14 +38,14 @@ N = diag([n_1 n_2]);
 K_T = diag([K_t_1 K_t_2]);
 tau_d =[tau_d_1; tau_d_2];
 
-x_2_dot = inv(M)*(-C*x_2 - D*x_2 - tau_d + N*K_T*x_3);
+x_2_dot = M \ (-C*x_2 - D*x_2 - tau_d + N*K_T*x_3);
 
 % calculation  x_3_dot
 L_a = diag([l_a_1 l_a_2]);
 R_a = diag([r_a_1 r_a_2]);
 K_E = diag([K_e_1 K_e_2]);
 
-x_3_dot = inv(L_a)*(u - R_a*x_3 - N*K_E*x_2 );
+x_3_dot = L_a \ (u - R_a*x_3 - N*K_E*x_2 );
 
 %return the Xdot
 Xdot =[x_1_dot; x_2_dot; x_3_dot];end
