@@ -37,7 +37,7 @@ a_hat_2 = W(2);
 a_hat_3 = W(3);
 a_hat_4 = W(4);
 x_2f = W(5:6);
-x_3f = W(7:8);
+x_3f = W(7:8); % Suboptimal
 S_11 = W(9);
 S_12 = W(10);
 S_bar_13 = W(11);
@@ -53,8 +53,7 @@ S_dot_13 = omega_r - r/(2*R) * (x_21 - x_22);
 S_13 = S_bar_13 + atan(k_1 * S_12 * v_r);
 
 % Inline between eq. 13 & 15
-alpha_1 = (k_1 * v_r^2 * sin(S_bar_13) + k_1 * S_12 * v_r) / (1 + (k_1 * S_12 * v_r)^2); % TODO: Use v_dot_r
-% alpha_1 = (k_1 * v_r^2 * sin(S_bar_13) + k_1 * S_12 * 0) / (1 + (k_1 * S_12 * v_r)^2); % TODO: Use non-zero v_dot_r
+alpha_1 = (k_1 * v_r^2 * sin(S_bar_13) + k_1 * S_12 * 0) / (1 + (k_1 * S_12 * v_r)^2); % NOTE: Neglecting v_dot_r
 alpha_2 = integral(@(eta) cos(-atan(k_1 * S_12 * v_r) + eta * S_13), 0, 1);
 h_1 = a_hat_1 * v_r * cos(S_bar_13) + k_2 * S_11 + 1/2 * (k_1 * v_r)^4 * S_11^3;
 h_2 = (1 + (k_1 * v_r * S_11)/(1 + (k_1 * S_12 * v_r)^2))^(-1) * (a_hat_1 * alpha_2 * v_r * S_12 + a_hat_2 * (omega_r + alpha_1) + k_3 * S_13 + 1/2 * S_13^3);
@@ -84,7 +83,8 @@ x_bar_3 = -k_4 * S_2 - (a_hat_3 * (Phi_1 * Phi_1') * S_2)/(2 * delta_1^2);
 a_hat_dot_3 = gamma_3 * (S_2' * (Phi_1 * Phi_1') * S_2) / (2 * delta_1^2) - sigma_3 * gamma_3 * a_hat_3;
 
 % Equation 23
-x_dot_3f = 1/tau_3 * (x_bar_3 - x_3f);
+% x_dot_3f = 1/tau_3 * (x_bar_3 - x_3f);
+x_dot_3f = 1/tau_3 * (x_bar_3 - 0*x_3f); % NOTE: Better still non-reliable. Need to reduce k_4 for stability.
 
 % Equation 20
 Phi_2 = [-x_31, 0, -x_21, 0, -x_dot_3f(1), 0; 0, -x_32, 0, -x_22, 0, -x_dot_3f(2)];
