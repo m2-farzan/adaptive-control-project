@@ -44,7 +44,7 @@ S_bar_13 = W(11);
 
 %% STEP 1
 
-% Equation 10
+% Equation 11
 S_dot_11 = r/(2*R) * (x_21 - x_22) * S_12 - r/2 * (x_21 + x_22) + v_r * cos(S_bar_13);
 S_dot_12 = -r/(2*R) * (x_21 - x_22) * S_11 + v_r * sin(S_bar_13);
 S_dot_13 = omega_r - r/(2*R) * (x_21 - x_22);
