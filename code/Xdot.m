@@ -1,4 +1,4 @@
-function Xdot = Xdot(X,u)
+function Xdot = Xdot(X,u,t)
 % Plant states updator.
 % This function will update the states of the plant; X contains all plant
 % states (X=[x y theta v1 v2 ia_1 ia_2]^T) and u is the control input (the
@@ -6,7 +6,7 @@ function Xdot = Xdot(X,u)
 
 % Global variables
 global R r d I_m I_c I_w m_c m_w tau_d_1 tau_d_2 d_11 d_22 ...
-    n_1 n_2 K_t_1 K_t_2 l_a_1 l_a_2 r_a_1 r_a_2 K_e_1 K_e_2 ;
+    n_1 n_2 K_t_1 K_t_2 l_a_1 l_a_2 r_a_1 r_a_2 K_e_1 K_e_2 simulation_run_time;
 
 % Assign the input X
 % Modeling divide to 3 main part : kinematics and dynamics model of moble
@@ -36,8 +36,9 @@ D = [d_11, 0; 0, d_22];
 C = 0.5*1/R*r^2*m_c*d*[0, x_1_dot(3); - x_1_dot(3), 0];
 N = diag([n_1 n_2]);
 K_T = diag([K_t_1 K_t_2]);
-tau_d =[tau_d_1; tau_d_2];
-
+ 
+tau_d =[interp1([0 : 0.1 :simulation_run_time],tau_d_1,t);
+        interp1([0 : 0.1 :simulation_run_time],tau_d_2,t)];
 x_2_dot = M \ (-C*x_2 - D*x_2 - tau_d + N*K_T*x_3);
 
 % calculation  x_3_dot

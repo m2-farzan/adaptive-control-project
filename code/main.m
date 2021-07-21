@@ -6,6 +6,9 @@ disp('Initializing...')
 
 load_plant_params;
 load_controller_params;
+load_simulation_params;
+
+generate_disturbance;
 
 [X_0, W_0] = load_initial_state();
 S_0 = [X_0, W_0];
@@ -13,7 +16,7 @@ S_0 = [X_0, W_0];
 disp('Simulating...');
 
 tic;
-    [t, S] = ode45(@Sdot, [0, 60], S_0);
+    [t, S] = ode45(@Sdot, [0, simulation_run_time], S_0);
 toc;
 
 X = S(:, 1:7);
