@@ -9,7 +9,7 @@ load_controller_params;
 S_0 = [X_0, W_0];
 
 tic;
-    [t, S] = ode23(@Sdot, [0, 10], S_0);
+    [t, S] = ode45(@Sdot, [0, 60], S_0);
 toc;
 
 X = S(:, 1:7);

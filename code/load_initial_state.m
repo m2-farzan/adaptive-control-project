@@ -1,7 +1,7 @@
 function [X_0, W_0] = load_initial_state()
-    x = 1.5;
-    y = 1.5;
-    theta = pi/6;
+    x = 2;
+    y = 2;
+    theta = 0;
     v1 = 0.5;
     v2 = 0.5;
     i_a_1 = 2;
